@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:harry_potter/card.dart';
-import 'package:harry_potter/kullaniciProfilli.dart';
+import 'package:harry_potter/color_constants.dart';
 
 void main() => runApp(MyApp());
 
@@ -28,29 +28,17 @@ class MyHomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Dobby'),
+        centerTitle: true,
+        title: const Text('DOBBY'),
+        backgroundColor: ColorConstants.blue1,
       ),
       body: Center(
         child: Column(
-          mainAxisSize: MainAxisSize.max,
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          mainAxisAlignment: MainAxisAlignment.start,
+          // ignore: prefer_const_literals_to_create_immutables
           children: [
-            Expanded(
-              child: Container(
-                child: const RemoteApi(),
-              ),
-            ),
-            Container(
-              child: Padding(
-                padding: const EdgeInsets.only(bottom: 50),
-                child: ElevatedButton(
-                  onPressed: () {
-                    Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => const KullaniciProfili()));
-                  },
-                  child: const Text('Kullanici Profili'),
-                ),
-              ),
+            const Expanded(
+              child: RemoteApi(),
             ),
           ],
         ),

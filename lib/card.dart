@@ -1,6 +1,8 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:harry_potter/color_constants.dart';
 import 'package:harry_potter/karakter.dart';
+import 'package:harry_potter/kullaniciProfilli.dart';
 
 class RemoteApi extends StatefulWidget {
   const RemoteApi({super.key});
@@ -64,41 +66,62 @@ class CharCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var screenSize = MediaQuery.of(context).size;
     return Container(
-      width: 500,
-      height: 500,
-      alignment: Alignment.center,
-      color: Colors.white,
+      height: screenSize.height,
+      color: ColorConstants.blue4,
       child: ListView(
-        padding: const EdgeInsets.only(top: 10),
         children: [
-          Container(
-            width: 170,
-            height: 170,
-            decoration: BoxDecoration(
-              border: Border.all(width: 2),
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(170),
-              boxShadow: [
-                BoxShadow(
-                  spreadRadius: 2,
-                  blurRadius: 10,
-                  color: Colors.black.withOpacity(0.5),
-                )
-              ],
-              // ignore: prefer_const_constructors
-              image: DecorationImage(
-                image: const AssetImage('assets/images/dobby.jpg'),
-                /*image: NetworkImage('_dobby'),*/
-                fit: BoxFit.cover,
+          Center(
+            child: Padding(
+              padding: const EdgeInsets.only(top: 20),
+              child: Container(
+                width: 170,
+                height: 170,
+                decoration: BoxDecoration(
+                  border: Border.all(width: 2),
+                  color: ColorConstants.white,
+                  borderRadius: BorderRadius.circular(170),
+                  boxShadow: [
+                    BoxShadow(
+                      spreadRadius: 2,
+                      blurRadius: 10,
+                      color: ColorConstants.black.withOpacity(0.5),
+                    )
+                  ],
+                  // ignore: prefer_const_constructors
+                  image: DecorationImage(
+                    image: const AssetImage('assets/images/dobby.jpg'),
+                    fit: BoxFit.cover,
+                  ),
+                ),
               ),
             ),
           ),
-          buildText("name: ", char.name),
-          buildText("species: ", char.species),
-          buildText("gender: ", char.gender),
-          buildText("yearOfBirth: ", char.yearOfBirth.toString()),
-          buildText("actor: ", char.actor),
+          Expanded(child: buildText("name: ", char.name)),
+          Expanded(child: buildText("species: ", char.species)),
+          Expanded(child: buildText("gender: ", char.gender)),
+          Expanded(child: buildText("eyeColor: ", char.eyeColour)),
+          Expanded(child: buildText("actor: ", char.actor)),
+          Expanded(child: buildText("wizard: ", char.wizard)),
+          Expanded(
+              child: buildText("hogwarts Student: ", char.hogwartsStudent)),
+          Padding(
+            padding: const EdgeInsets.only(left: 80, right: 80, top: 140),
+            child: ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                primary: ColorConstants.blue1,
+              ),
+              onPressed: () {
+                Navigator.of(context).push(MaterialPageRoute(
+                    builder: (context) => const KullaniciProfili()));
+              },
+              child: const Text(
+                "Profil Sayfama Git",
+                style: TextStyle(fontSize: 18),
+              ),
+            ),
+          ),
         ],
       ),
     );
@@ -106,14 +129,24 @@ class CharCard extends StatelessWidget {
 
   Widget buildText(String str, dynamic str2) {
     return Container(
-      child: Padding(
-        padding: const EdgeInsets.only(left: 20, top: 20),
-        child: Text(
-          '$str  $str2',
-          style: const TextStyle(fontSize: 25, fontStyle: FontStyle.italic),
-          textAlign: TextAlign.justify,
-        ),
+        child: Padding(
+      padding: const EdgeInsets.only(left: 10, top: 20),
+      child: Row(
+        children: [
+          Text(
+            '$str',
+            // ignore: prefer_const_constructors
+            style: TextStyle(
+              fontSize: 20,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          Text(
+            '${str2.toString()}',
+            style: TextStyle(fontSize: 20),
+          ),
+        ],
       ),
-    );
+    ));
   }
 }
