@@ -61,8 +61,6 @@ class CharCard extends StatelessWidget {
   }) : super(key: key);
 
   final Karakter char;
-  final String _dobby =
-      'https://cdn.fantastikcanavarlar.com/wp-content/uploads/2016/06/dobby-yeni-3-e1475185798739.jpg';
 
   @override
   Widget build(BuildContext context) {
@@ -72,7 +70,7 @@ class CharCard extends StatelessWidget {
       alignment: Alignment.center,
       color: Colors.white,
       child: ListView(
-        padding: EdgeInsets.only(top: 10),
+        padding: const EdgeInsets.only(top: 10),
         children: [
           Container(
             width: 170,
@@ -88,53 +86,33 @@ class CharCard extends StatelessWidget {
                   color: Colors.black.withOpacity(0.5),
                 )
               ],
-              image: const DecorationImage(
-                image: NetworkImage('_dobby'),
+              // ignore: prefer_const_constructors
+              image: DecorationImage(
+                image: const AssetImage('assets/images/dobby.jpg'),
+                /*image: NetworkImage('_dobby'),*/
                 fit: BoxFit.cover,
               ),
             ),
           ),
-          Padding(
-            padding: const EdgeInsets.only(left: 20, top: 20),
-            child: Text(
-              'name:  ${char.name}',
-              style: TextStyle(fontSize: 25),
-              textAlign: TextAlign.justify,
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Text(
-              'house:  ${char.species}',
-              style: TextStyle(fontSize: 25),
-              textAlign: TextAlign.justify,
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Text(
-              'eye color:  ${char.eyeColour}',
-              style: TextStyle(fontSize: 25),
-              textAlign: TextAlign.justify,
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Text(
-              'actor:  ${char.actor}',
-              style: TextStyle(fontSize: 25),
-              textAlign: TextAlign.justify,
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Text(
-              'wizard:  ${char.wizard.toString()}',
-              style: TextStyle(fontSize: 25),
-              textAlign: TextAlign.justify,
-            ),
-          )
+          buildText("name: ", char.name),
+          buildText("species: ", char.species),
+          buildText("gender: ", char.gender),
+          buildText("yearOfBirth: ", char.yearOfBirth.toString()),
+          buildText("actor: ", char.actor),
         ],
+      ),
+    );
+  }
+
+  Widget buildText(String str, dynamic str2) {
+    return Container(
+      child: Padding(
+        padding: const EdgeInsets.only(left: 20, top: 20),
+        child: Text(
+          '$str  $str2',
+          style: const TextStyle(fontSize: 25, fontStyle: FontStyle.italic),
+          textAlign: TextAlign.justify,
+        ),
       ),
     );
   }
