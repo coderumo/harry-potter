@@ -1,7 +1,5 @@
 # harry_potter
-
-A new Flutter project.
-
+API den veri çekme ve bunu listeleme üzerine verilen staj görevim.
 ## Getting Started
 
 This project is a starting point for a Flutter application.
